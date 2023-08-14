@@ -1,0 +1,12 @@
+<% word = params[:word]%>
+<% letters = params[:letters] %>
+<% if word.chars.all? { |letter| letters.include?(letter.upcase) }%>
+<%= "c'est OK" %>
+<% else %>
+<%= "Sorry but #{word.upcase} cannot be build of #{letters}." %>
+<% end%>
+
+
+<%
+response = RestClient.get('https://wagon-dictionary.herokuapp.com/#{word}', {accept: :json})%>
+<%= JSON.parse(response.body)%>
